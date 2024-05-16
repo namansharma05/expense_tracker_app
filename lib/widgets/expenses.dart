@@ -1,3 +1,4 @@
+import 'package:expense_tracker_app/widgets/chart/chart.dart';
 import 'package:expense_tracker_app/widgets/expenses_list/expenses_list.dart';
 import 'package:expense_tracker_app/models/expense.dart';
 import 'package:expense_tracker_app/widgets/new_expense.dart';
@@ -11,7 +12,18 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
-  final List<Expense> _registeredExpenses = [];
+  final List<Expense> _registeredExpenses = [
+    Expense(
+        title: 'Test1',
+        amount: 20,
+        date: DateTime.now(),
+        category: Category.food),
+    Expense(
+        title: 'Test2',
+        amount: 10,
+        date: DateTime.now(),
+        category: Category.work),
+  ];
 
   void _openAddExpenseOverlay() {
     showModalBottomSheet(
@@ -65,24 +77,21 @@ class _ExpensesState extends State<Expenses> {
     }
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
         title: const Text(
           'Flutter ExpenseTracker',
-          style: TextStyle(color: Colors.white),
         ),
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,
             icon: const Icon(
               Icons.add,
-              color: Colors.white,
             ),
           ),
         ],
       ),
       body: Column(
         children: [
-          Text('The chart'),
+          Chart(expenses: _registeredExpenses),
           Expanded(
             child: mainContent,
           ),
